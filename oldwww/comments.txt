@@ -1,0 +1,15 @@
+From: [from-field]
+To: [required-to]
+CC: [from-field]
+Subject: [subject-field]
+Errors-To: golf@mit.edu	
+
+----------------------------------------------------------------
+NOTE: This message was sent through the MIT GOLF TEAM homepage. 
+The address [from-field] may easily be incorrect.
+----------------------------------------------------------------
+
+
+[required-body]
+
+
