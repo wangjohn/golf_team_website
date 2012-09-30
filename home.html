@@ -3,32 +3,10 @@
   <head>
     <title>MIT Golf Team</title>
     <link rel="stylesheet" content="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <link rel="stylesheet" content="text/css" href="background_image.css">
-    <script type="text/javascript">
-      $(function(){
-        var animSpeed = 2000;
-        $('#starting_image').click(function(){
-          performEnter(animSpeed);
-        });
-        $('#enter_header').click(function(){
-          performEnter(animSpeed);
-        });
-      });
-      function performEnter(animSpeed){
-        $('#enter_header').fadeOut(animSpeed, function(){
-          $('#starting_image').fadeOut(animSpeed);
-          $('#page_wrapper').fadeIn(animSpeed, function(){
-            $('.container').fadeIn(animSpeed);
-          });
-        });
-      }
-    </script>
   </head>
   <body>
-    <h1 id="enter_header" style="position:absolute;margin-left:40%;margin-top:10%;">Enter MIT Golf</h1>
-    <img src="images/gallery/hawaii-3.jpg" id="starting_image" style="height:100%;width:100%" />
-    <div id="page_wrapper" class="homepage" style="display:none">
+    <div id="page_wrapper" class="homepage">
       <div class="navbar narrow navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container">
@@ -53,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="container" style="margin-top:50px;display:none">
+    <div class="container" style="margin-top:50px">
       <div class="thumbnail shadowlight contentblock well">
         <div class="row center header-row">
           <h2 class="pagination-centered">

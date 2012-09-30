@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>MIT Golf Team</title>
+    <link rel="stylesheet" type="text/css" href="nivo-slider.css" media="screen">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.nivo.slider.pack.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        var currentPicture = 0;
+        var numPictures = 0;
+        var continuousSlide = true;
+        var animSpeed = 2000;
+        $('#slider img').each(function(index){
+            if (index > 0){
+              $(this).hide();
+            } else {
+              $('#caption').text($(this).attr('title'));
+            }
+            numPictures += 1;
+        });
+        function nextSlide(){
+          var lastPicture = $('#slider img').eq(currentPicture);
+          var thisPicture = $('#slider img').eq((currentPicture+1) % numPictures);
+          lastPicture.fadeOut(animSpeed, function(){
+            thisPicture.fadeIn(animSpeed)
+            $('#caption').text(thisPicture.attr('title'));
+          });
+          currentPicture = ((currentPicture + 1) % numPictures);
+        }
+        function previousSlide(){
+          var lastPicture = $('#slider img').eq(currentPicture);
+          var thisPicture = $('#slider img').eq((currentPicture-1) % numPictures);
+          lastPicture.fadeOut(animSpeed, function(){
+            thisPicture.fadeIn(animSpeed);
+            $('#caption').text(thisPicture.attr('title'));
+          });
+          currentPicture = ((currentPicture - 1) % numPictures);
+        }
+        function forwardButton(){
+          continousSlide = false;
+          nextSlide();
+        }
+        function backwardButton(){
+          continuousSlide = false;
+          nextSlide();
+        }
+        function playButton(){
+          continuousSlide = true;
+        }
+        function playSlideshow(){
+          if (continuousSlide){
+            nextSlide();
+          }
+          setTimeout(playSlideshow, 9000);
+        }
+        playSlideshow();
+        $('#forward_button').click(forwardButton);
+        $('#backward_button').click(backwardButton);
+        $('#play_button').click(playButton);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="slider-wrapper">
+      <div id="slider" class="nivoSlider">
+        <img src="images/gallery/hawaii-1.jpg" title="Founding members of the Golf Team pose for a final farewell." />
+        <img src="images/gallery/hawaii-2.jpg" title="Nicholas Swenson swings from behind a fairway obstruction." />
+        <img src="images/gallery/hawaii-3.jpg" title="Raven Reddy tees off at Waikoloa."/>
+        <img src="images/gallery/hawaii-paulina.jpg" title="Paulina Mustafa prepares to tee off on a par 3."/>
+        <img src="images/gallery/guttag-he.jpg" title="Chao He and Mark Guttag size up their next shot during a two-man scramble at Newton Commonwealth."/>
+        <img src="images/gallery/eric-johnson-newton-commmonwealth.jpg" title="Eric Johnson tees off at Newton Commonwealth."/>
+        <img src="images/gallery/john-wang-putting.jpg" title="John Wang rolls a putt during a tournament against University of Buffalo."/>
+      </div>
+    </div>
+    <div class="buttons nivo-caption">
+      <div class="button_wrapper">
+        <div class="button" id="backward_button"></div>
+      </div>
+      <div class="button_wrapper">
+        <div class="button" id="forward_button"></div>
+      </div>
+      <div class="caption_wrapper">
+        <div id="caption"></div>
+      </div>
+    </div>
+  </body>
+</html>
