@@ -6,21 +6,85 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.nivo.slider.pack.js"></script>
     <script type="text/javascript">
-      $(window).load(function() {
-        $('#slider').nivoSlider({
-          effect: 'fade',
-          pauseTime: 1000,
-          animSpeed: 1500,
+      $(function(){
+        var currentPicture = 0;
+        var numPictures = 0;
+        var continuousSlide = true;
+        var animSpeed = 2000;
+        var timeCounter = 0;
+        var changePicSpeed = 9000;
+        $('#slider img').each(function(index){
+            if (index > 0){
+              $(this).hide();
+            } else {
+              $('#caption').text($(this).attr('title'));
+            }
+            numPictures += 1;
         });
+        function nextSlide(){
+          var lastPicture = $('#slider img').eq(currentPicture);
+          var thisPicture = $('#slider img').eq((currentPicture+1) % numPictures);
+          lastPicture.fadeOut(animSpeed, function(){
+            thisPicture.fadeIn(animSpeed)
+            $('#caption').text(thisPicture.attr('title'));
+          });
+          currentPicture = ((currentPicture + 1) % numPictures);
+        }
+        function previousSlide(){
+          var lastPicture = $('#slider img').eq(currentPicture);
+          var thisPicture = $('#slider img').eq((currentPicture-1) % numPictures);
+          lastPicture.fadeOut(animSpeed, function(){
+            thisPicture.fadeIn(animSpeed);
+            $('#caption').text(thisPicture.attr('title'));
+          });
+          currentPicture = ((currentPicture - 1) % numPictures);
+        }
+        function forwardButton(){
+          continuousSlide = true;
+          changePicSpeed += 1000;
+        }
+        function backwardButton(){
+          continuousSlide = false;
+          if (changePicSpeed > (animSpeed*2 + 1000)){
+            changePicSpeed -= 1000;
+          }
+          console.log(changePicSpeed);
+        }
+        function playSlideshow(){
+          if (continuousSlide){
+            nextSlide();
+          } else {
+            previousSlide();
+          }
+          setTimeout(playSlideshow, changePicSpeed);
+        }
+        playSlideshow();
+        $('#forward_button').click(forwardButton);
+        $('#backward_button').click(backwardButton);
       });
     </script>
   </head>
   <body>
     <div class="slider-wrapper">
       <div id="slider" class="nivoSlider">
-        <img src="images/gallery/hawaii-1.jpg" title=""/>
-        <img src="images/gallery/hawaii-2.jpg" title="This is an example of a caption" />
-        <img src="images/gallery/hawaii-3.jpg" />
+        <img src="images/gallery/hawaii-1.jpg" title="Founding members of the Golf Team pose for a final farewell." />
+        <img src="images/gallery/hawaii-2.jpg" title="Nicholas Swenson swings from behind a fairway obstruction." />
+        <img src="images/gallery/hawaii-3.jpg" title="Raven Reddy tees off at Waikoloa."/>
+        <img src="images/gallery/hawaii-paulina.jpg" title="Paulina Mustafa prepares to tee off on a par 3."/>
+        <img src="images/gallery/guttag-he.jpg" title="Chao He and Mark Guttag size up their next shot during a two-man scramble at Newton Commonwealth."/>
+        <img src="images/gallery/eric-johnson-newton-commmonwealth.jpg" title="Eric Johnson tees off at Newton Commonwealth."/>
+        <img src="images/gallery/john-wang-putting.jpg" title="John Wang rolls a putt during a tournament against University of Buffalo."/>
+      </div>
+    </div>
+    <div class="buttons nivo-caption">
+      <div class="button_wrapper">
+        <div class="button" id="backward_button"></div>
+      </div>
+      <div class="button_wrapper">
+        <div class="button" id="forward_button"></div>
+      </div>
+      <div class="caption_wrapper">
+        <div id="caption"></div>
       </div>
     </div>
   </body>

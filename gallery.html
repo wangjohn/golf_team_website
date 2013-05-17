@@ -11,6 +11,8 @@
         var numPictures = 0;
         var continuousSlide = true;
         var animSpeed = 2000;
+        var timeCounter = 0;
+        var changePicSpeed = 9000;
         $('#slider img').each(function(index){
             if (index > 0){
               $(this).hide();
@@ -38,26 +40,27 @@
           currentPicture = ((currentPicture - 1) % numPictures);
         }
         function forwardButton(){
-          continousSlide = false;
-          nextSlide();
+          continuousSlide = true;
+          changePicSpeed += 1000;
         }
         function backwardButton(){
           continuousSlide = false;
-          nextSlide();
-        }
-        function playButton(){
-          continuousSlide = true;
+          if (changePicSpeed > (animSpeed*2 + 1000)){
+            changePicSpeed -= 1000;
+          }
+          console.log(changePicSpeed);
         }
         function playSlideshow(){
           if (continuousSlide){
             nextSlide();
+          } else {
+            previousSlide();
           }
-          setTimeout(playSlideshow, 9000);
+          setTimeout(playSlideshow, changePicSpeed);
         }
         playSlideshow();
         $('#forward_button').click(forwardButton);
         $('#backward_button').click(backwardButton);
-        $('#play_button').click(playButton);
       });
     </script>
   </head>
